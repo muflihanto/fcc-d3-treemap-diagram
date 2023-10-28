@@ -1,3 +1,6 @@
+import data from "../data/movie-data.json";
+import Treemap from "./Treemap";
+
 export default function Movies() {
   return (
     <>
@@ -13,6 +16,7 @@ export default function Movies() {
       >
         Top 100 Highest Grossing Movies Grouped By Genre
       </p>
+      <Treemap data={data} />
     </>
   );
 }

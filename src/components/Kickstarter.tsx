@@ -1,3 +1,6 @@
+import data from "../data/kickstarter-funding-data.json";
+import Treemap from "./Treemap";
+
 export default function Kickstarter() {
   return (
     <>
@@ -13,6 +16,7 @@ export default function Kickstarter() {
       >
         Top 100 Most Pledged Kickstarter Campaigns Grouped By Category
       </p>
+      <Treemap data={data} />
     </>
   );
 }

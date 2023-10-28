@@ -1,3 +1,6 @@
+import data from "../data/video-game-sales-data.json";
+import Treemap from "./Treemap";
+
 export default function VideoGame() {
   return (
     <>
@@ -13,6 +16,7 @@ export default function VideoGame() {
       >
         Top 100 Most Sold Video Games Grouped by Platform
       </p>
+      <Treemap data={data} />
     </>
   );
 }
