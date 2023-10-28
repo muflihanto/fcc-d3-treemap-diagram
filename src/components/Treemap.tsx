@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 import * as contrast from "get-contrast";
+import { useOutletContext } from "react-router-dom";
+import { ContextType } from "../App";
 
 export interface Data {
   name: string;
@@ -19,6 +21,7 @@ const colors = ["rgb(53,97,143)", "rgb(161,216,50)", "rgb(250,121,245)", "rgb(26
 const color = d3.scaleOrdinal<string>().range(colors.map((color) => d3.interpolateRgb(color, "#fff")(0.2)));
 
 export default function Treemap({ data }: { data: unknown }) {
+  const { tooltip } = useOutletContext<ContextType>();
   const width = 960;
   const height = 600;
   const treemap = d3.treemap<Data>().size([width, height]).paddingInner(1)(
@@ -39,25 +42,37 @@ export default function Treemap({ data }: { data: unknown }) {
           className="self-start lg:self-center"
         >
           {treemap.leaves().map((d) => {
+            const { category, name, value, id } = d.data;
             return (
               <g
                 className="group"
-                key={d.data.id}
+                key={id}
                 transform={`translate(${d.x0},${d.y0})`}
               >
                 <rect
-                  id={d.data.id}
+                  id={id}
                   className="tile"
                   width={d.x1 - d.x0}
                   height={d.y1 - d.y0}
-                  data-name={d.data.name}
-                  data-category={d.data.category}
-                  data-value={d.data.value}
-                  fill={color(d.data.category)}
+                  data-name={name}
+                  data-category={category}
+                  data-value={value}
+                  fill={color(category)}
+                  onMouseMove={(e) => {
+                    tooltip?.style("opacity", "0.9");
+                    tooltip
+                      ?.html(`Name: ${name}<br>Category: ${category}<br>Value: ${value}`)
+                      .attr("data-value", value)
+                      .style("left", e.pageX + 16 + "px")
+                      .style("top", e.pageY - 40 + "px");
+                  }}
+                  onMouseOut={() => {
+                    tooltip?.style("opacity", 0);
+                  }}
                 />
                 <text className="tile-text text-[10px]">
-                  {d.data.name.split(" ").map((name, idx) => {
-                    const ratios = ["#000", "#FFF"].map((c) => contrast.ratio(c, color(d.data.category)));
+                  {name.split(" ").map((name, idx) => {
+                    const ratios = ["#000", "#FFF"].map((c) => contrast.ratio(c, color(category)));
                     return (
                       <tspan
                         key={`${name}-${idx}`}
