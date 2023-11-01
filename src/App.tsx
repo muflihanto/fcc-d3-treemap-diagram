@@ -9,7 +9,7 @@ export type ContextType = { tooltip: d3.Selection<HTMLDivElement, unknown, null,
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/fcc-d3-treemap-diagram",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
@@ -37,13 +37,13 @@ function Root() {
       <nav>
         <ul className="flex items-center justify-center [&>li]:px-3 [&_a:hover]:underline text-sky-600 font-semibold divide-x divide-black">
           <li>
-            <Link to={{ pathname: "/", search: "?data=videogames" }}>Video Game Data Set</Link>
+            <Link to={{ pathname: "/fcc-d3-treemap-diagram", search: "?data=videogames" }}>Video Game Data Set</Link>
           </li>
           <li>
-            <Link to={{ pathname: "/", search: "?data=movies" }}>Movies Data Set</Link>
+            <Link to={{ pathname: "/fcc-d3-treemap-diagram", search: "?data=movies" }}>Movies Data Set</Link>
           </li>
           <li>
-            <Link to={{ pathname: "/", search: "?data=kickstarter" }}>Kickstarter Data Set</Link>
+            <Link to={{ pathname: "/fcc-d3-treemap-diagram", search: "?data=kickstarter" }}>Kickstarter Data Set</Link>
           </li>
         </ul>
       </nav>

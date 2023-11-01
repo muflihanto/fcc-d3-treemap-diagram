@@ -21,6 +21,6 @@ export default function Diagram() {
       return <Kickstarter />;
       break;
     default:
-      return <></>;
+      return null;
   }
 }
